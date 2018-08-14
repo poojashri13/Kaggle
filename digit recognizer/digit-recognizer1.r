@@ -1,0 +1,13 @@
+library(caret)
+library(doParallel)
+setwd("E:\\kaggle\\digit recognizer")
+train<- read.csv("train.csv")
+dim(train)
+str(train)
+train$label = as.factor(train$label)
+test <- read.csv("test.csv")
+dim(test)
+test$label <- sample(0:9,nrow(test),replace = T)
+test$ImageId<-1:nrow(test)
+submission<-test[,c("ImageId","label")]
+write.table(submission,file="submission.csv",col.names=T,row.names = F,sep = ",")
